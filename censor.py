@@ -11,16 +11,10 @@ class WordFilter:
 
 
 def main():
-    NG_word_list = []
     while True:
-        while True:
-            print('NGワードを入力してください。')
-            NG_word = input("これ以上必要ないときはそのままエンターを押してください。　＞　")
-            if NG_word == '':
-                break
-            NG_word_list.append(NG_word)
-        replace_word = input("置き換えるワードを入力してください。　＞　")
 
+        NG_word_list = make_NG_list()
+        replace_word = input("置き換えるワードを入力してください。　＞　")
         my_filter = WordFilter(NG_word_list=NG_word_list, replace_word=replace_word)
 
         # NGワードが含まれている場合
@@ -30,15 +24,25 @@ def main():
         my_filter.censor("昨日のリバプールの試合アツかった！")
 
         while True:
-            change_flag = input('NGワードを変更しますか？　[y/n] ＞　')
-            if change_flag == 'y' or change_flag == 'n':
+            change = input('NGワードを変更しますか？　[y/n] ＞　')
+            if change == 'y' or change == 'n':
                 break
 
-        if change_flag == 'y':
+        if change == 'y':
             continue
-        elif change_flag == 'n':
+        elif change == 'n':
             break
 
+
+def make_NG_list():
+    NG_word_list = []
+    while True:
+        print('NGワードを入力してください。')
+        NG_word = input("これ以上必要ないときはそのままエンターを押してください。　＞　")
+        if NG_word == '':
+            break
+        NG_word_list.append(NG_word)
+    return NG_word_list
 
 if __name__ == '__main__':
     main()
