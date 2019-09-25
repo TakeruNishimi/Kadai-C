@@ -1,16 +1,25 @@
 class WordFilter:
-    def __init__(self, word):
-        self.word = word
-
-    def detect(self, sentence):
-        print(self.word in sentence)
+    def __init__(self, NG_word_list, replace_word):
+        self.NG_word_list = NG_word_list
+        self.replace_word = replace_word
 
     def censor(self, sentence):
-        print(sentence.replace(self.word, '<censored>'))
-
+        replace_sentence = sentence
+        for NG_word in self.NG_word_list:
+            replace_sentence = replace_sentence.replace(NG_word, self.replace_word)
+        print(replace_sentence)
 
 def main():
-    my_filter = WordFilter("アーセナル")
+    NG_word_list = []
+    while True:
+        print('NGワードを入力してください。')
+        NG_word = input("これ以上必要ないときはそのままエンターを押してください。　＞　")
+        if NG_word == '':
+            break
+        NG_word_list.append(NG_word)
+    replace_word = input("置き換えるワードを入力してください。　＞　")
+
+    my_filter = WordFilter(NG_word_list=NG_word_list, replace_word=replace_word)
 
     # NGワードが含まれている場合
     my_filter.censor("昨日のアーセナルの試合アツかった！")
